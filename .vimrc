@@ -48,8 +48,6 @@ set showcmd
 set number
 " 現在の行を強調表示
 set cursorline
-" 行末の1文字先までカーソルを移動できるように
-set virtualedit=onemore
 " インデントはスマートインデント
 set smartindent
 " ビープ音を可視化
@@ -64,7 +62,14 @@ set wildmode=list:longest
 nnoremap j gj
 nnoremap k gk
 
+" dictionary 設定
+" Ctrl-x + Ctrl-k で辞書が起動する
+set dictionary=/usr/share/dict/words
+
 " color scheme
+autocmd ColorScheme * highlight Comment ctermfg=102
+autocmd ColorScheme * highlight Visual  ctermfg=4
+" hi Visual  ctermfg=4
 colorscheme molokai
 " 256色環境
 set t_Co=256
@@ -117,3 +122,35 @@ let g:jedi#popup_select_first = 0
 autocmd FileType python setlocal completeopt-=preview
 " .を入力すると補完が始まる設定を解除
 let g:jedi#popup_on_dot = 0
+
+" clang を用いたコード補完(vim-clang)
+" C のソースコードのときのオプション
+let g:clang_c_options = '-std=c11'
+" C++ のソースコードのときのオプション
+let g:clang_cpp_options = '-std=c++1z -stdlib=libc++'
+" ファイルを保存するときにシンタックスのチェックを行う
+let g:clang_check_syntax_auto = 1
+
+
+"
+" markdown に関する設定
+"
+" plasticboy/vim-markdown の設定
+" シンタックスハイライト用
+let g:vim_markdown_folding_disabled = 1
+" let g:vim_markdown_auto_insert_bullets = 0
+" let g:vim_markdown_new_list_item_indent = 0
+
+" kannokanno/previm の設定
+" markdown をブラウザでプレビュー
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+let g:previm_open_cmd = 'open -a Google\ Chrome'
+" ctrl pでプレビュー
+nnoremap <silent> <C-p> :PrevimOpen<CR>
+
+" tyru/open-browser.vim の設定
+" カーソル下のurlや文字列を開いたり検索したりする
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+
