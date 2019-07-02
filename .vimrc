@@ -30,6 +30,11 @@ if dein#check_install()
 endif
 
 " setting
+" 置換系
+" ノーマルモード時だけ ; と : を入れ替える
+" 前前前世から僕は君を探し始めたよ
+nnoremap ; :
+nnoremap : ;
 "文字コードをUFT-8に設定
 set fenc=utf-8
 " バックアップファイルを作らない
